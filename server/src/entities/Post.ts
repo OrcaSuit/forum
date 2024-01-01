@@ -2,8 +2,12 @@ import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany }
 import BaseEntity from './Entity';
 import { Exclude, Expose } from 'class-transformer';
 import { makeId, slugify } from '../utils/helpers';
+import { User } from './User';
+import Sub from './Sub';
+import Comment from './Comment';
+import { Vote } from './Vote';
 
-@Entity("subs")
+@Entity("posts")
 export default class Post extends BaseEntity {
     @Index()
     @Column()
@@ -18,6 +22,9 @@ export default class Post extends BaseEntity {
 
     @Column({ nullable: true, type: "text" })
     body: string;
+
+    @Column()
+    subName: string;
 
     @Column()
     username: string;
@@ -54,7 +61,7 @@ export default class Post extends BaseEntity {
 
     setUserVote(user: User) {
         const index = this.votes?.findIndex(v => v.username === user.username);
-        this.userVote = index > -1 ? this.votes[index.value] : 0;
+        this.userVote = index > -1 ? this.votes[index].value : 0;
     }
 
     @BeforeInsert()
