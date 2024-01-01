@@ -1,6 +1,7 @@
 import { BaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-export default abstract class Entity extends BaseEntity { //typeorm의 다양한 메소드를 사용하기 위함 
+/* 모든 Entity에 id, createAt, updateAt 이 필요함으로 BaseEntity를 따로 생성해서 다른 엔티티에서 상속받아 사용 */
+export default abstract class Entity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
