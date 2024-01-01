@@ -1,7 +1,8 @@
 import { Expose } from "class-transformer";
-import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { User } from "./User";
+import { Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+import BaseEntity from './Entity';
 import Post from "./Post";
+import { User } from "./User";
 
 @Entity("subs")
 export default class Sub extends BaseEntity {
@@ -33,7 +34,6 @@ export default class Sub extends BaseEntity {
         return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` : //로컬 호스트 4000
             "http://www.gravatar.com/avatar?d=mp&f=y"
     }
-
 
     @Expose()
     get bannerUrl(): string {

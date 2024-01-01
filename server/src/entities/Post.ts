@@ -5,7 +5,7 @@ import { makeId, slugify } from '../utils/helpers';
 import { User } from './User';
 import Sub from './Sub';
 import Comment from './Comment';
-import { Vote } from './Vote';
+import Vote from './Vote';
 
 @Entity("posts")
 export default class Post extends BaseEntity {
