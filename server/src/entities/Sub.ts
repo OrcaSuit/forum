@@ -35,7 +35,7 @@ export default class Sub extends BaseEntity {
 
     @Expose()
     get bannerUrl(): string {
-        return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` : //로컬 호스트 4000
+        return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` :
             undefined;
     }
 }
