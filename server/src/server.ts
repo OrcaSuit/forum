@@ -1,12 +1,19 @@
 import express from "express";
 import morgan from "morgan";
-import { AppDataSource } from "./data-source"
+import { AppDataSource } from "./data-source";
+import authRoutes from './routes/auth';
+import cors from 'cors';
 
 const app = express(); //express 모듈의 최상위 함수 
+const origin = "http://localhost:3000"
 
+app.use(cors({
+    origin,
+}))
 app.use(express.json()); //request에서 json 형식의 파일을 받아 온 것을 해석
 app.use(morgan("dev")); //개발환경에서 dev 옵션을 사용 
 app.get("/", (_, res) => res.send("running"));
+app.use("/api/auth", authRoutes)
 
 let port = 4000;
 

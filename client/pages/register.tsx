@@ -1,6 +1,8 @@
+import axios from 'axios';
 import InputGroup from '../src/components/InputGroup'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
+import { useRouter } from 'next/router';
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -8,12 +10,29 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
 
+    let router = useRouter();
+
+    const handleSubmit = async (event: FormEvent) => {
+        event.preventDefault();
+        try {
+            const res = axios.post('/auth/register', {
+                email,
+                password,
+                username
+            })
+            console.log('res', res);
+            router.push("/login");
+        } catch (error: any) {
+            console.log('error', error);
+            setErrors(error.response.data || {});
+        }
+    }
     return (
         <div className='bg-white'>
             <div className='flex flex-col items-center justify-center h-screen p-6'>
                 <div className='w-10/12 mx-auto md:w-96'>
                     <h1 className='mb-2 text-lg font-medium'> 회원가입 </h1>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <InputGroup
                             placeholder='Email'
                             value={email}
@@ -32,7 +51,6 @@ const Register = () => {
                             setValue={setPassword}
                             error={errors.password}
                         />
-
                         <button className='w-full py-2 mb-1 text-xs font-bold text-white uppercase bg-gray-400 border border-gray-400 rounded'>
                             회원가입
                         </button>
@@ -48,5 +66,4 @@ const Register = () => {
         </div>
     )
 }
-
-export default Register
+export default Register;
