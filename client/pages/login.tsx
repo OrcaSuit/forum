@@ -1,17 +1,19 @@
 import React, { FormEvent, useState } from 'react'
-import InputGroup from '@/src/components/InputGroup'
+import InputGroup from '../src/components/InputGroup'
 import Link from 'next/link'
-import axios, { Axios } from 'axios';
-import { useRouter } from 'next/router'
-import { useAuthDispatch } from '@/src/context/auth';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useAuthDispatch, useAuthState } from '../src/context/auth';
 
 const Login = () => {
     let router = useRouter();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
-
+    const { authenticated } = useAuthState();
     const dispatch = useAuthDispatch();
+
+    if (authenticated) router.push("/");
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -23,14 +25,16 @@ const Login = () => {
             router.push("/")
         } catch (error: any) {
             console.log(error);
-            setErrors(error.response.data || {})
+            setErrors(error.response?.data || {})
         }
-    };
+    }
+
+
     return (
         <div className='bg-white'>
             <div className='flex flex-col items-center justify-center h-screen p-6'>
                 <div className='w-10/12 mx-auto md:w-96'>
-                    <h1 className='mb-2 text-lg font-medium'> 로그인 </h1>
+                    <h1 className='mb-2 text-lg font-medium'>로그인</h1>
                     <form onSubmit={handleSubmit}>
                         <InputGroup
                             placeholder='Username'
@@ -50,8 +54,8 @@ const Login = () => {
                     </form>
                     <small>
                         아직 아이디가 없나요?
-                        <Link className='ml-1 text-blue-500 uppercase' href="/register" >
-                            회원가입
+                        <Link href="/register" legacyBehavior>
+                            <a className='ml-1 text-blue-500 uppercase'>회원가입</a>
                         </Link>
                     </small>
                 </div>
