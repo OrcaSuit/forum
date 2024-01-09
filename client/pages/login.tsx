@@ -3,6 +3,7 @@ import InputGroup from '@/src/components/InputGroup'
 import Link from 'next/link'
 import axios, { Axios } from 'axios';
 import { useRouter } from 'next/router'
+import { useAuthDispatch } from '@/src/context/auth';
 
 const Login = () => {
     let router = useRouter();
@@ -10,10 +11,16 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
 
+    const dispatch = useAuthDispatch();
+
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         try {
-            await axios.post("/auth/login", { password, username }, { withCredentials: true })
+            const res = await axios.post("/auth/login", { password, username }, { withCredentials: true })
+
+            dispatch("LOGIN", res.data?.user);
+
+            router.push("/")
         } catch (error: any) {
             console.log(error);
             setErrors(error.response.data || {})

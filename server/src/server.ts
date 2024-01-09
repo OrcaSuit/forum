@@ -5,16 +5,16 @@ import authRoutes from './routes/auth';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-const app = express(); //express 모듈의 최상위 함수 
-const origin = process.env.ORIGIN;
-
+const app = express();
+const origin = "http://localhost:3000";
+console.log(origin);
 app.use(cors({
     origin,
     credentials: true
 }))
 
-app.use(express.json()); //request에서 json 형식의 파일을 받아 온 것을 해석
-app.use(morgan("dev")); //개발환경에서 dev 옵션을 사용 
+app.use(express.json());
+app.use(morgan('dev'));
 
 dotenv.config();
 
