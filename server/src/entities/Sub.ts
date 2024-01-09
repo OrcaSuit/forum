@@ -19,6 +19,9 @@ export default class Sub extends BaseEntity {
     @Column({ nullable: true })
     imageUrn: string;
 
+    @Column({ nullable: true })
+    bannerUrn: string;
+
     @Column()
     username: string;
 
@@ -26,18 +29,18 @@ export default class Sub extends BaseEntity {
     @JoinColumn({ name: "username", referencedColumnName: "username" })
     user: User;
 
-    @OneToMany(() => Post, (post => post.sub))
-    posts: Post[];
+    @OneToMany(() => Post, (post) => post.sub)
+    posts: Post[]
 
     @Expose()
     get imageUrl(): string {
-        return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` : //로컬 호스트 4000
-            "http://www.gravatar.com/avatar?d=mp&f=y"
+        return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` :
+            "https://www.gravatar.com/avatar?d=mp&f=y"
     }
 
     @Expose()
     get bannerUrl(): string {
-        return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` :
+        return this.bannerUrn ? `${process.env.APP_URL}/images/${this.bannerUrn}` :
             undefined;
     }
 }
