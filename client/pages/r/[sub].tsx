@@ -1,3 +1,4 @@
+import SideBar from '@/src/components/SideBar';
 import { useAuthState } from '@/src/context/auth';
 import { Post } from '@/src/types';
 import axios from 'axios'
@@ -55,6 +56,7 @@ const SubPage = () => {
     }
 
     let renderPosts;
+    /*
     if (!sub) {
         renderPosts = <p className="text-lg text-center">로딩중...</p>
     } else if (sub.posts.length === 0) {
@@ -63,7 +65,7 @@ const SubPage = () => {
         renderPosts = sub.posts.map((post: Post) => (
             <PostCard key={post.identifier} post={post} subMutate={mutate} />
         ))
-    }
+    }*/
 
     console.log('sub.imageUrl', sub?.imageUrl)
     return (
@@ -121,6 +123,7 @@ const SubPage = () => {
                     {/* 포스트와 사이드바 */}
                     <div className='flex max-w-5xl px-4 pt-5 mx-auto'>
                         <div className="w-full md:mr-3 md:w-8/12">{renderPosts} </div>
+                        <SideBar sub={sub}></SideBar>
                     </div>
                 </>
             }
