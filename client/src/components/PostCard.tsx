@@ -85,7 +85,7 @@ const PostCard = ({
                 <div className='flex items-center'>
                     {!isInSubPage && (
                         <div className='flex items-center'>
-                            <Link href={`/r/${subName}`}>
+                            <Link href={`/r/${subName}`} legacyBehavior>
                                 <a>
                                     <Image
                                         src={sub!.imageUrl}
@@ -96,7 +96,7 @@ const PostCard = ({
                                     />
                                 </a>
                             </Link>
-                            <Link href={`/r/${subName}`}>
+                            <Link href={`/r/${subName}`} legacyBehavior>
                                 <a className="ml-2 text-xs font-bold cursor-pointer hover:underline">
                                     /r/{subName}
                                 </a>
@@ -107,10 +107,10 @@ const PostCard = ({
 
                     <p className="text-xs text-gray-400">
                         Posted by
-                        <Link href={`/u/${username}`}>
+                        <Link href={`/u/${username}`} legacyBehavior>
                             <a className="mx-1 hover:underline">/u/{username}</a>
                         </Link>
-                        <Link href={url}>
+                        <Link href={url} legacyBehavior>
                             <a className='mx-1 hover:underline'>
                                 {dayjs(createdAt).format('YYYY-MM-DD HH:mm')}
                             </a>
@@ -118,18 +118,17 @@ const PostCard = ({
                     </p>
                 </div>
 
-                <Link href={url}>
+                <Link href={url} legacyBehavior>
                     <a className="my-1 text-lg font-medium">{title}</a>
                 </Link>
                 {body && <p className="my-1 text-sm">{body}</p>}
                 <div className="flex">
-                    <Link href={url}>
+                    <Link href={url} legacyBehavior>
                         <a>
                             <i className="mr-1 fas fa-comment-alt fa-xs"></i>
                             <span>{commentCount}</span>
                         </a>
                     </Link>
-
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import PostCard from '@/src/components/PostCard';
 import SideBar from '@/src/components/SideBar';
 import { useAuthState } from '@/src/context/auth';
 import { Post } from '@/src/types';
@@ -5,7 +6,7 @@ import axios from 'axios'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 
 const SubPage = () => {
     const [ownSub, setOwnSub] = useState(false);
@@ -56,16 +57,15 @@ const SubPage = () => {
     }
 
     let renderPosts;
-    /*
     if (!sub) {
         renderPosts = <p className="text-lg text-center">로딩중...</p>
-    } else if (sub.posts.length === 0) {
+    } else if (!sub.posts || sub.posts.length === 0) {
         renderPosts = <p className="text-lg text-center">아직 작성된 포스트가 없습니다.</p>
     } else {
         renderPosts = sub.posts.map((post: Post) => (
-            <PostCard key={post.identifier} post={post} subMutate={mutate} />
+            <PostCard key={post.identifier} post={post} />
         ))
-    }*/
+    }
 
     console.log('sub.imageUrl', sub?.imageUrl)
     return (
